@@ -12,3 +12,13 @@ async function loadPoints() {
         (point) => `<option value="${point.id}">${point.name}</option>`
     ).join('');
 }
+
+async function addPoint() {
+    const name = document.getElementById('pointName').value;
+    await fetch('/points', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ name }) 
+    });
+    loadPoints();
+}
