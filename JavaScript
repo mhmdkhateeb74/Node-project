@@ -1,0 +1,14 @@
+async function loadPoints() {
+    const res = await fetch('/points');
+    const points = await res.json();
+    document.getElementById('pointsList').innerHTML = points.map(
+        (point) => `<li class="points-list-item">${point.name} 
+                    <div>
+                        <button class="delete-btn" onclick="deletePoint(${point.id})">Delete</button>
+                        <button onclick="editPoint(${point.id})">Edit</button>
+                    </div></li>`
+    ).join('');
+    document.getElementById('pointSelect').innerHTML = points.map(
+        (point) => `<option value="${point.id}">${point.name}</option>`
+    ).join('');
+}
