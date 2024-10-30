@@ -26,3 +26,17 @@ async function deletePoint(id) {
     await fetch(`/points/${id}`, { method: 'DELETE' });
     loadPoints();
 }
+
+async function editPoint(id) {
+    const newName = prompt("Enter new name:");
+    if (newName) {
+        await fetch(`/points/${id}`, { 
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ name: newName }) 
+        });
+        loadPoints();
+    }
+}
+
+
