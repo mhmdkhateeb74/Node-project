@@ -39,4 +39,20 @@ async function editPoint(id) {
     }
 }
 
+async function recordVisit() {
+    const pointId = document.getElementById('pointSelect').value;
+    await fetch('/visits', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ pointId }) 
+    });
+    loadVisits();
+}
 
+async function loadVisits() {
+    const res = await fetch('/visits');
+    const visits = await res.json();
+    document.getElementById('visitsList').innerHTML = visits.map(
+        (visit) => `<li>Point ID: ${visit.pointId}, Time: ${visit.timestamp}</li>`
+    ).join('');
+}
