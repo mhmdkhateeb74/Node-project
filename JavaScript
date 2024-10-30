@@ -22,3 +22,7 @@ async function addPoint() {
     });
     loadPoints();
 }
+async function deletePoint(id) {
+    await fetch(`/points/${id}`, { method: 'DELETE' });
+    loadPoints();
+}
