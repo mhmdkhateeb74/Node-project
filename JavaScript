@@ -56,3 +56,6 @@ async function loadVisits() {
         (visit) => `<li>Point ID: ${visit.pointId}, Time: ${visit.timestamp}</li>`
     ).join('');
 }
+
+loadPoints();
+loadVisits();
