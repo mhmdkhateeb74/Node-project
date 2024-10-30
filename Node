@@ -42,3 +42,16 @@ app.delete('/points/:id', (req, res) => {
         res.status(404).json("Point not found");
     }
 });
+
+app.post('/visits', (req, res) => {
+    const visit = {
+        pointId: req.body.pointId,
+        timestamp: new Date().toISOString()
+    };
+    visits.push(visit);
+    res.status(200).json("Visit recorded");
+});
+
+app.get('/visits', (req, res) => {
+    res.status(200).json(visits);
+});
