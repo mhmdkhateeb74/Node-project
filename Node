@@ -10,3 +10,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let points = [];
 let visits = [];
 let pointIdCounter = 1;
+
+app.get('/points', (req, res) => {
+    res.status(200).json(points);
+});
+
+app.post('/points', (req, res) => {
+    const newPoint = { id: pointIdCounter++, name: req.body.name };
+    points.push(newPoint);
+    res.status(200).json("Point added");
+});
+
+app.put('/points/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const point = points.find(p => p.id === id);
+    if (point) {
+        point.name = req.body.name;
+        res.status(200).json("Point updated");
+    } else {
+        res.status(404).json("Point not found");
+    }
+});
+
+app.delete('/points/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = points.findIndex(p => p.id === id);
+    if (index !== -1) {
+        points.splice(index, 1);
+        res.status(200).json("Point deleted");
+    } else {
+        res.status(404).json("Point not found");
+    }
+});
